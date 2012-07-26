@@ -1,0 +1,9 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<venice version="0.1" startx="0" starty="0" startz="0">
+	<project name="project name 1" description="description of project 1">
+		<object interactive="false" model="mesto_obj" texture="mesto_png" doublesided="1"></object>
+	</project>
+	<project name="project name 2" description="description of project 2">
+		<object interactive="false" model="mesto_obj" texture="mesto_png" doublesided="0"></object>
+	</project>
+</venice>
