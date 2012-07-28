@@ -53,15 +53,19 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		/*doesnt work*/
+		//getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG); 
 		/* </layout setup> */
 		super.onCreate(savedInstanceState);
+		chkConfig();
 		/* <renderer init> */
 		super.setGLBackgroundTransparent(true);
 		mSurfaceView.setZOrderOnTop(false);
 		mRenderer = new VeniceExplorerRenderer(this);
 		mRenderer.setSurfaceView(mSurfaceView);
+		mRenderer.setObjs(vProjects);
 		super.setRenderer(mRenderer);
-		mRenderer.setBackgroundColor(0f, 0f, 0f, 0f);
+		mRenderer.setBackgroundColor(0);
 		/* </renderer init> */
 
 		/* <camera init> */
@@ -76,7 +80,7 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		ll = new LinearLayout(this);
 		ll.setOrientation(LinearLayout.VERTICAL);
 		ll.setGravity(Gravity.TOP);
-
+		mLayout.addView(ll);
 		/* <debug text> */
 		rotZ = new TextView(this);
 		rotZ.setText("");
@@ -87,12 +91,13 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 
 		ll.addView(rotZ);
 
-		mLayout.addView(ll);
 		rotZ.bringToFront();
 
 		d.setRoundingMode(RoundingMode.HALF_UP);
 		d.setMaximumFractionDigits(3);
 		d.setMinimumFractionDigits(3);
+		/*<text menu>*/
+		CreateTextMenu();
 	}
 
 	@Override
@@ -107,13 +112,20 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 	protected void onResume() {
 		super.onResume();
 		initListeners();
-		chkConfig();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		mSensorManager.unregisterListener(this);
+	}
+
+	@Override
+	public void onAttachedToWindow() {
+		super.onAttachedToWindow();
+		/*causes crash*/
+		// this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD);
+		// this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
 	}
 
 	public void chkConfig() {
@@ -174,7 +186,7 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 							po.setTexture(dirn + "/" + av);
 						}
 						if (an.contentEquals("doublesided")) {
-							po.setTexture(dirn + "/" + av);
+							//po.setDS(dirn + "/" + av);
 						}
 					}
 					vProjects.get(jj).addModel(po);
@@ -189,41 +201,46 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 			eventType = xpp.next();
 		}
 		Log.d("main", "Num projects: " + vProjects.size());
-		String[] strings = new String[vProjects.size()];
+	}
+	public void CreateTextMenu()
+	{
 		/* <build list of projects> */
 		for (int i = 0; i < vProjects.size(); i++) {
 			TextView chsP = new TextView(this);
 			chsP.setText(vProjects.get(i).getName());
 			chsP.setClickable(true);
-			MyClickListener myh=new MyClickListener(i,this);
+			MyClickListener myh = new MyClickListener(i, this);
 			chsP.setOnClickListener(myh);
 			ll.addView(chsP);
-		}
+		}		
 	}
-	private class MyClickListener implements OnClickListener{
+	private class MyClickListener implements OnClickListener {
 		private int w;
 		VeniceExplorerActivity a;
-		public MyClickListener(int w, VeniceExplorerActivity a)
-		{
-			this.w=w;
-			this.a=a;
+
+		public MyClickListener(int w, VeniceExplorerActivity a) {
+			this.w = w;
+			this.a = a;
 		}
-		public void onClick(View v)
-		{
-			Log.d("Clicked", "project no:"+getW());
+
+		public void onClick(View v) {
+			Log.d("Clicked", "project no:" + getW());
 			a.SelectProject(getW());
 		}
-		public int getW()
-		{
+
+		public int getW() {
 			return w;
 		}
 	}
-	public void SelectProject(int w)
-	{
-		
-		Log.d("Select project", "project no:"+w+":"+vProjects.get(w).getName());
-		mRenderer.LoadObjects(vProjects.get(w));
+
+	public void SelectProject(int w) {
+
+		Log.d("Select project", "project no:" + w + ":"
+				+ vProjects.get(w).getName());
+		//mRenderer.LoadObjects(vProjects.get(w));
+		mRenderer.showProject(w);
 	}
+
 	public void onSensorChanged(SensorEvent event) {
 		switch (event.sensor.getType()) {
 		case Sensor.TYPE_ORIENTATION:

@@ -1,9 +1,11 @@
 package com.example.veniceexplorer;
+import rajawali.BaseObject3D;
 
 public class ProjectObject {
 	private String modelName="";
 	private String modelTexture="";
 	private int doublesided=0;
+	public BaseObject3D obj;
 	ProjectObject()
 	{
 		
