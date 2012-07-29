@@ -26,6 +26,7 @@ public class VeniceExplorerRenderer extends RajawaliRenderer {
 	private ArrayList<ProjectLevel> ps;
 	private int ActualModel;
 	private boolean izLoaded;
+	private float rot = 0f;
 
 	public VeniceExplorerRenderer(Context context) {
 		super(context);
@@ -41,10 +42,10 @@ public class VeniceExplorerRenderer extends RajawaliRenderer {
 		mLight.setColor(1.0f, 1.0f, 1.0f);
 		mLight.setPower(5f);
 		mLight.setAttenuation(500, 1, .09f, .032f);
-		mLight.setPosition(0f,1.6f, 0f);
-		mCamera.setPosition(0, 1.4f, 0);
-		mCamera.setRotation(0, 0, 0);
-		mCamera.setFarPlane(1000);
+		mLight.setPosition(0f, 1.6f, 0f);
+		mCamera.setPosition(0f, 1.4f, 0f);
+		mCamera.setFarPlane(50f);
+		mCamera.setNearPlane(0.1f);
 		for (int i = 0; i < ps.size(); i++) {
 			LoadObjects(ps.get(i));
 		}
@@ -75,9 +76,12 @@ public class VeniceExplorerRenderer extends RajawaliRenderer {
 			obj.setVisible(false);
 			obj.setMaterial(new PhongMaterial());
 			obj.setColor(new Number3D(1f, 0.5f, 0.5f));
-			mBM=BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+p.getModels().get(i).getTexture());
+			mBM = BitmapFactory.decodeFile(Environment
+					.getExternalStorageDirectory().getAbsolutePath()
+					+ "/"
+					+ p.getModels().get(i).getTexture());
 			Log.d("textura", p.getModels().get(i).getTexture());
-			//obj.addTexture(mTextureManager.addTexture(mBM,TextureType.DIFFUSE));
+			// obj.addTexture(mTextureManager.addTexture(mBM,TextureType.DIFFUSE));
 			addChild(obj);
 			p.getModels().get(i).obj = obj;
 			/*
@@ -118,13 +122,35 @@ public class VeniceExplorerRenderer extends RajawaliRenderer {
 		}
 	}
 
+	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		super.onSurfaceCreated(gl, config);
 	}
 
-	public void setCameraAngle(float x, float y, float z) {
-		mCamera.setRotation(x, y, z);
-		// mCamera.setRotY(y);
-		// mCamera.setRotX(x);
+	@Override
+	public void onDrawFrame(GL10 glUnused) {
+		super.onDrawFrame(glUnused);
+		/*
+		rot += 0.1f;
+		if (rot > 360)
+			rot = 0;
+		setCamLA(rot, 100);
+		*/
+	}
+
+	public void setCamLA(float phi, float theta) {
+		float cx = mCamera.getX();
+		float cy = mCamera.getY();
+		float cz = mCamera.getZ();
+		float p = (float) Math.toRadians(phi);
+		float t = (float) Math.toRadians(theta);
+		float sinPhi = (float) (Math.round(Math.sin(p) * 1000)) / 1000;
+		float cosPhi = (float) (Math.round(Math.cos(p) * 1000)) / 1000;
+		float sinTheta = (float) (Math.round(Math.sin(t) * 1000)) / 1000;
+		float cosTheta = (float) (Math.round(Math.cos(t) * 1000)) / 1000;
+		float ay = cosTheta;
+		float ax=sinPhi*sinTheta;
+		float az=cosPhi*sinTheta;
+		mCamera.setLookAt(cx - ax, cy + ay, cz - az);
 	}
 }

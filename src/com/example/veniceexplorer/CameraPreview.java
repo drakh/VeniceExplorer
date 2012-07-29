@@ -17,25 +17,35 @@ public class CameraPreview extends SurfaceView implements
 		mHolder = getHolder();
 		mHolder.addCallback(this);
 		mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-		Log.d("main","camera context init");
+		Log.d("main", "camera context init");
 	}
 
 	public void surfaceCreated(SurfaceHolder holder) {
-		Log.d("main","camera surface created");
-		mVCamera = Camera.open();
-		try {
-			mVCamera.setPreviewDisplay(holder);
-			mVCamera.startPreview();
-			Log.d("main","camera started");
-		} catch (IOException e) {
-			Log.d("main","camera preview failed");
+		Log.d("main", "camera surface created");
+		if (mVCamera == null) {
+			mVCamera = Camera.open();
+			try {
+				mVCamera.setPreviewDisplay(holder);
+				mVCamera.startPreview();
+				Log.d("main", "camera started");
+			} catch (IOException e) {
+				Log.d("main", "camera preview failed");
+			}
 		}
 	}
 
 	public void surfaceDestroyed(SurfaceHolder holder) {
+		stopCam();
+	}
+
+	public void stopCam()
+
+	{
+
 		mVCamera.stopPreview();
 		mVCamera.release();
 		mVCamera = null;
+
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {

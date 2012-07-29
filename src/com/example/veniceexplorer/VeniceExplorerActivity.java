@@ -46,7 +46,8 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 	private TextView rotZ;
 	private ArrayList<ProjectLevel> vProjects;
 	private LinearLayout ll;
-
+	private float[] orientation;
+	private float[] rotation;
 	public void onCreate(Bundle savedInstanceState) {
 		/* <layout setup> */
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -98,11 +99,14 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		d.setMinimumFractionDigits(3);
 		/*<text menu>*/
 		CreateTextMenu();
+		rotation=new float[3];
+		orientation=new float[3];
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
+		mCameraSurface.stopCam();
 		// unregister sensor listeners to prevent the activity from draining the
 		// device's battery.
 		mSensorManager.unregisterListener(this);
@@ -118,6 +122,8 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 	protected void onPause() {
 		super.onPause();
 		mSensorManager.unregisterListener(this);
+		mCameraSurface.stopCam();
+		super.finish();
 	}
 
 	@Override
@@ -244,16 +250,33 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 	public void onSensorChanged(SensorEvent event) {
 		switch (event.sensor.getType()) {
 		case Sensor.TYPE_ORIENTATION:
-			// mRenderer.setCameraAngle((-1 * event.values[1]) - 90,0, 0);
-			rotZ.setText("X:" + d.format((event.values[1]) + 90) + " | Y: "
-					+ d.format(event.values[0]) + " | Z:"
-					+ d.format(event.values[1]));
-			mRenderer
-					.setCameraAngle((event.values[1]) + 90, event.values[0], 0);
+			orientation[0]=event.values[1]+180;
+			orientation[1]=event.values[0];
+			orientation[2]=event.values[2];
+			setCameraPos();
 			break;
 		}
 	}
-
+	public void setCameraPos()
+	{
+		String dtext="X:" + d.format(orientation[0]) + " | Y: "
+				+ d.format(orientation[1]) + " | Z:"
+				+ d.format(orientation[2])+"\n";
+		//current camera position
+		float px=mRenderer.getCamera().getX();
+		float py=mRenderer.getCamera().getY();
+		float pz=mRenderer.getCamera().getZ();
+		dtext+="rX: "+px+" | rY: "+py+" | rZ: "+pz+"\n";
+		//convert sphjerical to cartesian - sphere radius =1
+		float phi=orientation[1];
+		float theta=orientation[0];
+		dtext+="phi: "+phi+" | theta: "+theta+"\n";
+		//mRenderer.getCamera().setLookAt(px+tx,py+ty,pz+tz);
+		//mRenderer.setCameraAngle(orientation[0], orientation[1], 0);
+		mRenderer.setCamLA(phi, theta);
+		//mRednerer.setCamLA(orientation[1], 100);
+		rotZ.setText(dtext);
+	}
 	public void onAccuracyChanged(Sensor arg0, int arg1) {
 
 	}
