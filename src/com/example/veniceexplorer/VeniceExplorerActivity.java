@@ -270,11 +270,7 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		//convert sphjerical to cartesian - sphere radius =1
 		float phi=orientation[1];
 		float theta=orientation[0];
-		dtext+="phi: "+phi+" | theta: "+theta+"\n";
-		//mRenderer.getCamera().setLookAt(px+tx,py+ty,pz+tz);
-		//mRenderer.setCameraAngle(orientation[0], orientation[1], 0);
 		mRenderer.setCamLA(phi, theta);
-		//mRednerer.setCamLA(orientation[1], 100);
 		rotZ.setText(dtext);
 	}
 	public void onAccuracyChanged(Sensor arg0, int arg1) {
