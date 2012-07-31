@@ -11,4 +11,8 @@
 		<object interactive="false" model="mestocko_obj" texture="text030DiffuseMap.png" doublesided="1"></object>
 		<object interactive="false" model="anna_lines_obj" texture="lines.png" doublesided="1"></object>
 	</project>
+	<project name="video" description="description of project 2">
+	    <object interactive="false" model="screen_obj" texture="video.m4v" doublesided="1" usevideo="1"></object>
+		<!-- <object interactive="false" model="screen2_obj" texture="video.m4v" doublesided="1" usevideo="1"></object>-->
+	</project>
 </venice>

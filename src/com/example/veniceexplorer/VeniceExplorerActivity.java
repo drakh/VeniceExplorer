@@ -48,18 +48,23 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 	private LinearLayout ll;
 	private float[] orientation;
 	private float[] rotation;
+
 	public void onCreate(Bundle savedInstanceState) {
 		/* <layout setup> */
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		/*doesnt work*/
-		//getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG); 
+		getWindow().getDecorView().setSystemUiVisibility(
+				View.SYSTEM_UI_FLAG_LOW_PROFILE);
+		getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+		/* doesnt work */
+		// getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
 		/* </layout setup> */
 		super.onCreate(savedInstanceState);
 		chkConfig();
 		/* <renderer init> */
+		// super.createMultisampleConfig();
 		super.setGLBackgroundTransparent(true);
 		mSurfaceView.setZOrderOnTop(false);
 		mRenderer = new VeniceExplorerRenderer(this);
@@ -97,10 +102,10 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		d.setRoundingMode(RoundingMode.HALF_UP);
 		d.setMaximumFractionDigits(3);
 		d.setMinimumFractionDigits(3);
-		/*<text menu>*/
+		/* <text menu> */
 		CreateTextMenu();
-		rotation=new float[3];
-		orientation=new float[3];
+		rotation = new float[3];
+		orientation = new float[3];
 	}
 
 	@Override
@@ -124,14 +129,6 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		mSensorManager.unregisterListener(this);
 		mCameraSurface.stopCam();
 		super.finish();
-	}
-
-	@Override
-	public void onAttachedToWindow() {
-		super.onAttachedToWindow();
-		/*causes crash*/
-		// this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD);
-		// this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
 	}
 
 	public void chkConfig() {
@@ -186,13 +183,20 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 						String an = xpp.getAttributeName(k);
 						String av = xpp.getAttributeValue(k);
 						if (an.contentEquals("model")) {
+							Log.d("ww","set model");
 							po.setModel(dirn + "/" + av);
 						}
-						if (an.contentEquals("texture")) {
+						else if (an.contentEquals("texture")) {
+							Log.d("ww","set texture");
 							po.setTexture(dirn + "/" + av);
 						}
-						if (an.contentEquals("doublesided")) {
-							//po.setDS(dirn + "/" + av);
+						else if (an.contentEquals("doublesided")) {
+							Log.d("ww","set doublesided");
+							po.setDS(av);
+						}
+						else if (an.contentEquals("usevideo")) {
+							Log.d("ww","set video");
+							po.setVideo(av);
 						}
 					}
 					vProjects.get(jj).addModel(po);
@@ -208,8 +212,8 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		}
 		Log.d("main", "Num projects: " + vProjects.size());
 	}
-	public void CreateTextMenu()
-	{
+
+	public void CreateTextMenu() {
 		/* <build list of projects> */
 		for (int i = 0; i < vProjects.size(); i++) {
 			TextView chsP = new TextView(this);
@@ -218,8 +222,9 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 			MyClickListener myh = new MyClickListener(i, this);
 			chsP.setOnClickListener(myh);
 			ll.addView(chsP);
-		}		
+		}
 	}
+
 	private class MyClickListener implements OnClickListener {
 		private int w;
 		VeniceExplorerActivity a;
@@ -240,39 +245,36 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 	}
 
 	public void SelectProject(int w) {
-
-		Log.d("Select project", "project no:" + w + ":"
-				+ vProjects.get(w).getName());
-		//mRenderer.LoadObjects(vProjects.get(w));
 		mRenderer.showProject(w);
 	}
 
 	public void onSensorChanged(SensorEvent event) {
 		switch (event.sensor.getType()) {
 		case Sensor.TYPE_ORIENTATION:
-			orientation[0]=event.values[1]+180;
-			orientation[1]=event.values[0];
-			orientation[2]=event.values[2];
+			orientation[0] = event.values[1] + 180;
+			orientation[1] = event.values[0];
+			orientation[2] = event.values[2];
 			setCameraPos();
 			break;
 		}
 	}
-	public void setCameraPos()
-	{
-		String dtext="X:" + d.format(orientation[0]) + " | Y: "
-				+ d.format(orientation[1]) + " | Z:"
-				+ d.format(orientation[2])+"\n";
-		//current camera position
-		float px=mRenderer.getCamera().getX();
-		float py=mRenderer.getCamera().getY();
-		float pz=mRenderer.getCamera().getZ();
-		dtext+="rX: "+px+" | rY: "+py+" | rZ: "+pz+"\n";
-		//convert sphjerical to cartesian - sphere radius =1
-		float phi=orientation[1];
-		float theta=orientation[0];
+
+	public void setCameraPos() {
+		String dtext = "X:" + d.format(orientation[0]) + " | Y: "
+				+ d.format(orientation[1]) + " | Z:" + d.format(orientation[2])
+				+ "\n";
+		// current camera position
+		float px = mRenderer.getCamera().getX();
+		float py = mRenderer.getCamera().getY();
+		float pz = mRenderer.getCamera().getZ();
+		dtext += "rX: " + px + " | rY: " + py + " | rZ: " + pz + "\n";
+		// convert sphjerical to cartesian - sphere radius =1
+		float phi = orientation[1];
+		float theta = orientation[0];
 		mRenderer.setCamLA(phi, theta);
 		rotZ.setText(dtext);
 	}
+
 	public void onAccuracyChanged(Sensor arg0, int arg1) {
 
 	}
@@ -280,9 +282,9 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 	public void initListeners() {
 		mSensorManager.registerListener(this, mSensorManager
 				.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION),
-				SensorManager.SENSOR_DELAY_UI);
+				SensorManager.SENSOR_DELAY_FASTEST);
 		mSensorManager.registerListener(this,
 				mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
-				SensorManager.SENSOR_DELAY_UI);
+				SensorManager.SENSOR_DELAY_FASTEST);
 	}
 }

@@ -3,6 +3,8 @@ package com.example.veniceexplorer;
 import java.io.IOException;
 import android.content.Context;
 import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
+import android.hardware.Camera.Size;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.util.Log;
@@ -23,10 +25,14 @@ public class CameraPreview extends SurfaceView implements
 	public void surfaceCreated(SurfaceHolder holder) {
 		Log.d("main", "camera surface created");
 		if (mVCamera == null) {
-			mVCamera = Camera.open();
+			mVCamera = Camera.open(0);
 			try {
+				Camera.Parameters parameters = mVCamera.getParameters();
+				mVCamera.setDisplayOrientation(0);
 				mVCamera.setPreviewDisplay(holder);
 				mVCamera.startPreview();
+			    mVCamera.setParameters(parameters);
+			    mVCamera.startPreview();
 				Log.d("main", "camera started");
 			} catch (IOException e) {
 				Log.d("main", "camera preview failed");

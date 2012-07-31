@@ -17,8 +17,24 @@ import rajawali.materials.*;
 import rajawali.materials.TextureManager.TextureType;
 import java.util.ArrayList;
 import android.util.Log;
+import android.view.Surface;
+import java.io.IOException;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnBufferingUpdateListener;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnErrorListener;
+import android.media.MediaPlayer.OnPreparedListener;
+import android.media.AudioManager;
+import android.graphics.SurfaceTexture;
+import rajawali.primitives.*;
 
-public class VeniceExplorerRenderer extends RajawaliRenderer {
+public class VeniceExplorerRenderer extends RajawaliRenderer implements
+		OnPreparedListener, OnBufferingUpdateListener, OnCompletionListener,
+		OnErrorListener {
+
+	private MediaPlayer mMediaPlayer;
+	private SurfaceTexture mTexture;
+
 	private PointLight mLight;
 	private ObjParser mParser;
 	private TextureManager mTextureManager;
@@ -26,17 +42,21 @@ public class VeniceExplorerRenderer extends RajawaliRenderer {
 	private int ActualModel;
 	private boolean izLoaded;
 	private float rot = 0f;
+	private TextureInfo vt;
+	VideoMaterial vmaterial;
 
 	public VeniceExplorerRenderer(Context context) {
 		super(context);
 		RajLog.enableDebug(true);
 		setFrameRate(60);
 		izLoaded = false;
+
 	}
 
 	protected void initScene() {
 		Log.d("main", "scene init");
 		mTextureManager = new TextureManager();
+		setupVideoTexture();
 		mLight = new PointLight();
 		mLight.setColor(1.0f, 1.0f, 1.0f);
 		mLight.setPower(5f);
@@ -48,12 +68,24 @@ public class VeniceExplorerRenderer extends RajawaliRenderer {
 		for (int i = 0; i < ps.size(); i++) {
 			LoadObjects(ps.get(i));
 		}
-		// LoadObjects(ps);
-		/*
-		 * mParser = new ObjParser(this, "VeniceViewer/mesto_obj");
-		 * mParser.parse(); mObj = mParser.getParsedObject();
-		 * mObj.addLight(mLight); addChild(mObj);
-		 */
+
+	}
+
+	public void setupVideoTexture() {
+
+		vmaterial = new VideoMaterial();
+		vt = mTextureManager.addVideoTexture();
+		int textureid = vt.getTextureId();
+
+		mTexture = new SurfaceTexture(textureid);
+		mMediaPlayer = new MediaPlayer();
+		mMediaPlayer.setOnPreparedListener(this);
+		mMediaPlayer.setOnBufferingUpdateListener(this);
+		mMediaPlayer.setOnCompletionListener(this);
+		mMediaPlayer.setOnErrorListener(this);
+		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+		mMediaPlayer.setSurface(new Surface(mTexture));
+		mMediaPlayer.setLooping(true);
 	}
 
 	public void setObjs(ArrayList<ProjectLevel> p) {
@@ -66,46 +98,53 @@ public class VeniceExplorerRenderer extends RajawaliRenderer {
 			mParser = new ObjParser(this, p.getModels().get(i).getModel());
 			mParser.parse();
 			BaseObject3D obj = mParser.getParsedObject();
-			//obj.addLight(mLight);
+			// obj.addLight(mLight);
+			obj.setDepthMaskEnabled(true);
+			obj.setVisible(false);
+			obj.setDepthTestEnabled(true);
+			obj.setBlendingEnabled(true);
+			obj.setBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 			if (p.getModels().get(i).isDoubleSided()) {
 				obj.setDoubleSided(true);
 			}
-			obj.setDoubleSided(true);
-			
-			obj.setDepthMaskEnabled(true);
-			obj.setVisible(false);
-			obj.setMaterial(new SimpleMaterial());
-			//obj.setColor(new Number3D(1f, 0.5f, 0.5f));
-			obj.setDepthTestEnabled(true);
-			Bitmap mBM = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory()+ "/"+ p.getModels().get(i).getTexture());
-			obj.addTexture(mTextureManager.addTexture(mBM));
+			if (p.getModels().get(i).isVideo()) {
+				Log.d("isvideo","yeees");
+				obj.setMaterial(vmaterial);
+				obj.addTexture(vt);
+				//Log.d(tag, msg)
+			} else {
+				obj.setMaterial(new SimpleMaterial());
+				Bitmap mBM = BitmapFactory.decodeFile(Environment
+						.getExternalStorageDirectory()
+						+ "/"
+						+ p.getModels().get(i).getTexture());
+				obj.addTexture(mTextureManager.addTexture(mBM));
+			}
 			addChild(obj);
 			p.getModels().get(i).obj = obj;
-			/*
-			 * 
-			 * objs.get(i).setBlendingEnabled(true);
-			 * mObj.setBlendFunc(GL10.GL_SRC_ALPHA,
-			 * GL10.GL_ONE_MINUS_SRC_ALPHA);
-			 */
-			/*
-			 * mObj.setMaterial(new BumpmapPhongMaterial());
-			 * mBM=BitmapFactory.decodeFile("/sdcard/VeniceViewer/mesto_png");
-			 * mObj
-			 * .addTexture(mTextureManager.addTexture(mBM,TextureType.DIFFUSE));
-			 * mObj
-			 * .addTexture(mTextureManager.addTexture(mBM,TextureType.BUMP));
-			 */
-			// addChild(objs.get(i));
-			// addChild(mObj);
 		}
 		Log.d("objloader", "objects in scene:" + getNumChildren());
 	}
 
 	public void showProject(int k) {
+		mMediaPlayer.stop();
 		hideModels();
 		ProjectLevel p = ps.get(k);
 		for (int i = 0; i < p.getModels().size(); i++) {
 			p.getModels().get(i).obj.setVisible(true);
+			if (p.getModels().get(i).isVideo()) {
+				try {
+
+					mMediaPlayer.setDataSource(Environment
+							.getExternalStorageDirectory()
+							+ "/"
+							+ p.getModels().get(i).getTexture());
+					mMediaPlayer.prepareAsync();
+					Log.d("video","loading");
+				} catch (IOException e) {
+					Log.d("video","not loaded");
+				}
+			}
 		}
 
 	}
@@ -126,6 +165,7 @@ public class VeniceExplorerRenderer extends RajawaliRenderer {
 
 	@Override
 	public void onDrawFrame(GL10 glUnused) {
+		mTexture.updateTexImage();
 		super.onDrawFrame(glUnused);
 		/*
 		 * rot += 0.1f; if (rot > 360) rot = 0; setCamLA(rot, 100);
@@ -146,5 +186,24 @@ public class VeniceExplorerRenderer extends RajawaliRenderer {
 		float ax = sinPhi * sinTheta;
 		float az = cosPhi * sinTheta;
 		mCamera.setLookAt(cx - ax, cy + ay, cz - az);
+	}
+
+	public void onBufferingUpdate(MediaPlayer arg0, int arg1) {
+	}
+
+	public void onPrepared(MediaPlayer mediaplayer) {
+		mMediaPlayer.start();
+	}
+
+	public void onCompletion(MediaPlayer arg0) {
+	}
+
+	public boolean onError(MediaPlayer mp, int what, int extra) {
+		return false;
+	}
+
+	public void onSurfaceDestroyed() {
+		mMediaPlayer.release();
+		super.onSurfaceDestroyed();
 	}
 }
