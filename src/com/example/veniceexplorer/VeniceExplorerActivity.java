@@ -37,7 +37,28 @@ import java.util.ArrayList;
 
 public class VeniceExplorerActivity extends RajawaliActivity implements
 		SensorEventListener {
+	/* step detector */
 	DecimalFormat d = new DecimalFormat("#.##");
+	private boolean detecting = false;
+	private static int mLimit = 15;
+	private static float mLastValues[] = new float[3 * 2];
+	private static float mScale[] = new float[2];
+	private static float mYOffset = 0;
+	private static float mLastDirections[] = new float[3 * 2];
+	private static float mLastExtremes[][] = { new float[3 * 2],
+			new float[3 * 2] };
+	private static float mLastDiff[] = new float[3 * 2];
+	private static int mLastMatch = -1;
+	private int steps = 0;
+	private float step_len = 0.67f;
+	static {
+		int h = 480;
+		mYOffset = h * 0.5f;
+		mScale = new float[2];
+		mScale[0] = -(h * 0.5f * (1.0f / (SensorManager.STANDARD_GRAVITY * 2)));
+		mScale[1] = -(h * 0.5f * (1.0f / (SensorManager.MAGNETIC_FIELD_EARTH_MAX)));
+	}
+	/* main app */
 	private SensorManager mSensorManager = null;
 	private VeniceExplorerRenderer mRenderer;
 	private CameraPreview mCameraSurface;
@@ -47,7 +68,13 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 	private ArrayList<ProjectLevel> vProjects;
 	private LinearLayout ll;
 	private float[] orientation;
-	private float[] rotation;
+	private float[] positions;// here be dragons
+
+	private float current_phi;
+	private float current_theta;
+	private float cam_x;
+	private float cam_y;
+	private float cam_z;
 
 	public void onCreate(Bundle savedInstanceState) {
 		/* <layout setup> */
@@ -104,7 +131,7 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		d.setMinimumFractionDigits(3);
 		/* <text menu> */
 		CreateTextMenu();
-		rotation = new float[3];
+		positions = new float[3];
 		orientation = new float[3];
 	}
 
@@ -183,19 +210,16 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 						String an = xpp.getAttributeName(k);
 						String av = xpp.getAttributeValue(k);
 						if (an.contentEquals("model")) {
-							Log.d("ww","set model");
+							Log.d("ww", "set model");
 							po.setModel(dirn + "/" + av);
-						}
-						else if (an.contentEquals("texture")) {
-							Log.d("ww","set texture");
+						} else if (an.contentEquals("texture")) {
+							Log.d("ww", "set texture");
 							po.setTexture(dirn + "/" + av);
-						}
-						else if (an.contentEquals("doublesided")) {
-							Log.d("ww","set doublesided");
+						} else if (an.contentEquals("doublesided")) {
+							Log.d("ww", "set doublesided");
 							po.setDS(av);
-						}
-						else if (an.contentEquals("usevideo")) {
-							Log.d("ww","set video");
+						} else if (an.contentEquals("usevideo")) {
+							Log.d("ww", "set video");
 							po.setVideo(av);
 						}
 					}
@@ -255,24 +279,131 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 			orientation[1] = event.values[0];
 			orientation[2] = event.values[2];
 			setCameraPos();
+			if (!detecting) {
+				storeCurrentRotPos();
+			}
+			break;
+		case Sensor.TYPE_ACCELEROMETER:
+			if (detecting)
+				detectStep(event);
 			break;
 		}
 	}
 
-	public void setCameraPos() {
+	private void storeCurrentRotPos() {
+
+		current_phi = orientation[1];
+		current_theta = orientation[0];
+
+		cam_x = mRenderer.getCamera().getX();
+		cam_y = mRenderer.getCamera().getY();
+		cam_z = mRenderer.getCamera().getZ();
+
+		detecting = true;
+	}
+
+	private void detectStep(SensorEvent event) {
+		if (event == null)
+			return;
+
+		else {
+			float vSum = 0;
+			for (int i = 0; i < 3; i++) {
+				final float v = mYOffset + event.values[i] * mScale[0];
+				vSum += v;
+			}
+			int k = 0;
+			float v = vSum / 3;
+
+			float direction = (v > mLastValues[k] ? 1
+					: (v < mLastValues[k] ? -1 : 0));
+			if (direction == -mLastDirections[k]) {
+				// Direction changed
+				int extType = (direction > 0 ? 0 : 1); // minumum or
+														// maximum?
+				mLastExtremes[extType][k] = mLastValues[k];
+				float diff = Math.abs(mLastExtremes[extType][k]
+						- mLastExtremes[1 - extType][k]);
+
+				if (diff > mLimit) {
+
+					boolean isAlmostAsLargeAsPrevious = diff > (mLastDiff[k] * 2 / 3);
+					boolean isPreviousLargeEnough = mLastDiff[k] > (diff / 3);
+					boolean isNotContra = (mLastMatch != 1 - extType);
+
+					if (isAlmostAsLargeAsPrevious && isPreviousLargeEnough
+							&& isNotContra) {
+						onStep();
+						mLastMatch = extType;
+					} else {
+						mLastMatch = -1;
+					}
+				}
+				mLastDiff[k] = diff;
+			}
+			mLastDirections[k] = direction;
+			mLastValues[k] = v;
+		}
+	}
+
+	public void onStep() {
+		float[] ap = CylindricalToCartesian(current_phi, step_len, cam_y);
+		ap[0]=cam_x-ap[0];
+		ap[2]=cam_z-ap[2];
+		mRenderer.getCamera().setPosition(ap[0], ap[1], ap[2]);
+		storeCurrentRotPos();
+		steps++;
+		setLogValues();
+	}
+
+	public void setLogValues() {
 		String dtext = "X:" + d.format(orientation[0]) + " | Y: "
 				+ d.format(orientation[1]) + " | Z:" + d.format(orientation[2])
 				+ "\n";
+		dtext += "Step: " + steps + "\n";
+		dtext += "X: " + cam_x + " | Y: " + cam_y + " | Z: " + cam_z + "\n";
+		rotZ.setText(dtext);
+	}
+
+	public void setCameraPos() {
+		setLogValues();
 		// current camera position
-		float px = mRenderer.getCamera().getX();
-		float py = mRenderer.getCamera().getY();
-		float pz = mRenderer.getCamera().getZ();
-		dtext += "rX: " + px + " | rY: " + py + " | rZ: " + pz + "\n";
 		// convert sphjerical to cartesian - sphere radius =1
 		float phi = orientation[1];
 		float theta = orientation[0];
-		mRenderer.setCamLA(phi, theta);
-		rotZ.setText(dtext);
+		float[] cartesian = SphericalToCartesian(phi, theta, 1f);
+		mRenderer.setCamLA(cartesian[0], cartesian[1], cartesian[2]);
+	}
+
+	public float[] SphericalToCartesian(float phi, float theta, float r) {
+		float[] coords = new float[3];
+		float p = (float) Math.toRadians(phi);
+		float t = (float) Math.toRadians(theta);
+		float sinPhi = (float) (Math.round(Math.sin(p) * 1000)) / 1000;
+		float cosPhi = (float) (Math.round(Math.cos(p) * 1000)) / 1000;
+		float sinTheta = (float) (Math.round(Math.sin(t) * 1000)) / 1000;
+		float cosTheta = (float) (Math.round(Math.cos(t) * 1000)) / 1000;
+		float ay = r * cosTheta;
+		float ax = r * sinPhi * sinTheta;
+		float az = r * cosPhi * sinTheta;
+		coords[0] = ax;
+		coords[1] = ay;
+		coords[2] = az;
+		return coords;
+	}
+
+	public float[] CylindricalToCartesian(float phi, float r, float h) {
+		float[] coords = new float[3];
+		float p = (float) Math.toRadians(phi);
+		float sinPhi = (float) (Math.round(Math.sin(p) * 1000)) / 1000;
+		float cosPhi = (float) (Math.round(Math.cos(p) * 1000)) / 1000;
+		float ax = r * sinPhi;
+		float az = r * cosPhi;
+		coords[0] = ax;
+		coords[1] = h;
+		coords[2] = az;
+		return coords;
+
 	}
 
 	public void onAccuracyChanged(Sensor arg0, int arg1) {
@@ -285,6 +416,9 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 				SensorManager.SENSOR_DELAY_FASTEST);
 		mSensorManager.registerListener(this,
 				mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+				SensorManager.SENSOR_DELAY_FASTEST);
+		mSensorManager.registerListener(this,
+				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 				SensorManager.SENSOR_DELAY_FASTEST);
 	}
 }

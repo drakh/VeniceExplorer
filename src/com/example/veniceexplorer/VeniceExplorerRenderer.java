@@ -2,7 +2,7 @@ package com.example.veniceexplorer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-import android.opengl.GLES20;
+//import android.opengl.GLES20;
 import android.os.Environment;
 import rajawali.renderer.RajawaliRenderer;
 import rajawali.util.RajLog;
@@ -12,9 +12,9 @@ import rajawali.lights.PointLight;
 import rajawali.parser.ObjParser;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import rajawali.math.Number3D;
+//import rajawali.math.Number3D;
 import rajawali.materials.*;
-import rajawali.materials.TextureManager.TextureType;
+//import rajawali.materials.TextureManager.TextureType;
 import java.util.ArrayList;
 import android.util.Log;
 import android.view.Surface;
@@ -26,7 +26,7 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.AudioManager;
 import android.graphics.SurfaceTexture;
-import rajawali.primitives.*;
+//import rajawali.primitives.*;
 
 public class VeniceExplorerRenderer extends RajawaliRenderer implements
 		OnPreparedListener, OnBufferingUpdateListener, OnCompletionListener,
@@ -39,9 +39,9 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 	private ObjParser mParser;
 	private TextureManager mTextureManager;
 	private ArrayList<ProjectLevel> ps;
-	private int ActualModel;
+	//private int ActualModel;
 	private boolean izLoaded;
-	private float rot = 0f;
+	//private float rot = 0f;
 	private TextureInfo vt;
 	VideoMaterial vmaterial;
 
@@ -167,24 +167,12 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 	public void onDrawFrame(GL10 glUnused) {
 		mTexture.updateTexImage();
 		super.onDrawFrame(glUnused);
-		/*
-		 * rot += 0.1f; if (rot > 360) rot = 0; setCamLA(rot, 100);
-		 */
 	}
 
-	public void setCamLA(float phi, float theta) {
+	public void setCamLA(float ax, float ay, float az) {
 		float cx = mCamera.getX();
 		float cy = mCamera.getY();
 		float cz = mCamera.getZ();
-		float p = (float) Math.toRadians(phi);
-		float t = (float) Math.toRadians(theta);
-		float sinPhi = (float) (Math.round(Math.sin(p) * 1000)) / 1000;
-		float cosPhi = (float) (Math.round(Math.cos(p) * 1000)) / 1000;
-		float sinTheta = (float) (Math.round(Math.sin(t) * 1000)) / 1000;
-		float cosTheta = (float) (Math.round(Math.cos(t) * 1000)) / 1000;
-		float ay = cosTheta;
-		float ax = sinPhi * sinTheta;
-		float az = cosPhi * sinTheta;
 		mCamera.setLookAt(cx - ax, cy + ay, cz - az);
 	}
 
