@@ -40,7 +40,7 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 	private ArrayList<ProjectLevel>	ps;
 	private ArrayList<String>		textureNames;
 	private ArrayList<TextureInfo>	textureInfos;
-	private boolean					izLoaded	= false;	// to tell on draw
+	private boolean					izLoaded	= true;	// to tell on draw
 															// frame if to load
 															// scene
 	private boolean					doLoad		= true;	// no project loaded
@@ -55,10 +55,8 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 	{
 		super(context);
 		RajLog.enableDebug(false);
-
 		textureNames = new ArrayList<String>();
 		textureInfos = new ArrayList<TextureInfo>();
-
 		setFrameRate(30);
 	}
 

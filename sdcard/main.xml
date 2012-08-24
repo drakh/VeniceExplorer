@@ -1,5 +1,5 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
-<venice version="0.1" startx="0" starty="0" startz="0" server="http://someserver">
+<venice version="0.1" startx="0" starty="0" startz="0" server="http://someserver" debug="false">
 	<project name="M_P_BA" description="Morhacova">
 		<object interactive="false" model="11_MP_m_obj" texture="11_MP_m.png" doublesided="1"></object>
 		<object interactive="false" model="11_MP_o5_obj" texture="11_MP_o5.png" doublesided="1"></object>
@@ -68,8 +68,8 @@
 	    	action radius in meters, when square it is half size of side
 	    
 	     -->
+	     <!-- 
 	    <action name="changeTexture" type="s" radius="0.5">
-	        <!-- used when type s, r -->
 	        <onenter>
 	            <showmodels>
 	                <models>modelname</models>
@@ -95,6 +95,7 @@
 	            <axe>y</axe>
 	        </axes>
 	    </action>
+	     -->
 		<object interactive="true" action="changeTexture" model="02_NG-BB_obj" texture="NGBB.png" doublesided="0" visible="0"></object>
 		<object interactive="false" model="02_NG-001_obj" texture="NG01.png" doublesided="0"></object>
 		<object interactive="false" model="02_NG-002_obj" texture="NG01.png" doublesided="0"></object>

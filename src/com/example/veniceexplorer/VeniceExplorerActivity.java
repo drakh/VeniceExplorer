@@ -90,7 +90,7 @@ public class VeniceExplorerActivity extends Activity implements
 	private float[]					positions;									// here
 																				// be
 																				// dragons
-
+	private boolean					showDebug				= false;
 	private float					current_phi;
 	private float					current_theta;
 	private float					cam_x;
@@ -148,7 +148,7 @@ public class VeniceExplorerActivity extends Activity implements
 		mSurfaceView.setY((h - cs.height) / 2);
 		mSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
 		mSurfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
-		//mSurfaceView.setZOrderOnTop(true);
+		// mSurfaceView.setZOrderOnTop(true);
 		mSurfaceView.setZOrderMediaOverlay(true);
 		mRenderer.setSurfaceView(mSurfaceView);
 		mRenderer.setObjs(vProjects);
@@ -177,8 +177,6 @@ public class VeniceExplorerActivity extends Activity implements
 		rotZ.setTextColor(Color.WHITE);
 
 		ll.addView(rotZ);
-
-		rotZ.bringToFront();
 		d.setRoundingMode(RoundingMode.HALF_UP);
 		d.setMaximumFractionDigits(3);
 		d.setMinimumFractionDigits(3);
@@ -186,21 +184,33 @@ public class VeniceExplorerActivity extends Activity implements
 		CreateTextMenu();
 		positions = new float[3];
 		orientation = new float[3];
-
+		
+		float rp=w-90-20;
+		float bp=h-33-20;
+		FrameLayout gui=new FrameLayout(this);
+		ViewGroup.LayoutParams gui_p = new ViewGroup.LayoutParams(90,33);		
+		
 		ImageView info_v = new ImageView(this);
+		info_v.setLayoutParams(gui_p);
 		info_v.setImageResource(R.drawable.info_b);
-		ll.addView(info_v);
+		info_v.setX(rp);
+		info_v.setY(bp);
+		gui.addView(info_v);
+		
 		ImageView back_v = new ImageView(this);
 		back_v.setImageResource(R.drawable.back_b);
-		ll.addView(back_v);
+		back_v.setLayoutParams(gui_p);
+		back_v.setX(20);
+		back_v.setY(20);
+		gui.addView(back_v);
 		ImageView comm_v = new ImageView(this);
+		comm_v.setLayoutParams(gui_p);
 		comm_v.setImageResource(R.drawable.comment_b);
-		ll.addView(comm_v);
+		comm_v.setX(rp);
+		comm_v.setY(20);
+		gui.addView(comm_v);
+		mLayout.addView(gui);
 		setContentView(mLayout);
-		mCameraSurface.bringToFront();
-		mSurfaceView.bringToFront();
-		//mLayout.bringChildToFront(mSurfaceView);
-		ll.bringToFront();
 	}
 
 	@Override
@@ -360,6 +370,11 @@ public class VeniceExplorerActivity extends Activity implements
 		for (int i = 0; i < vProjects.size(); i++)
 		{
 			TextView chsP = new TextView(this);
+			chsP.setTextSize(18);
+			chsP.setGravity(Gravity.LEFT);
+			chsP.setHeight(32);
+			chsP.setShadowLayer(2f, 2f, 2f, Color.BLACK);
+			chsP.setPadding(10, 2, 0, 2);
 			chsP.setText(vProjects.get(i).getName());
 			chsP.setClickable(true);
 			MyClickListener myh = new MyClickListener(i, this);
