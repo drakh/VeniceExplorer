@@ -1,0 +1,29 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 17.08.2012 16:25:24
+
+mtllib 02_NG-Mesh027.mtl
+
+#
+# object Mesh027
+#
+
+v  6.8803 -0.0000 -3.5900
+v  5.9629 -0.0000 -3.5900
+v  6.8803 -0.0000 -2.6925
+v  5.9629 -0.0000 -2.6925
+# 4 vertices
+
+vn 0.0000 1.0000 -0.0000
+# 1 vertex normals
+
+vt 0.1032 0.8418 0.5000
+vt 0.1546 0.8418 0.5000
+vt 0.1546 0.8943 0.5000
+vt 0.1032 0.8943 0.5000
+# 4 texture coords
+
+g Mesh027
+usemtl NewGiardini
+f 2/1/1 4/2/1 3/3/1 1/4/1 
+# 1 polygons
+

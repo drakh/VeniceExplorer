@@ -1,0 +1,31 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 21.08.2012 19:19:07
+
+mtllib 03_SV_t7_obj.mtl
+
+#
+# object text7
+#
+
+v  0.4611 1.8793 -3.2073
+v  -0.1095 1.8793 -2.5407
+v  -0.1095 0.6384 -2.5407
+v  0.4611 0.6384 -3.2073
+# 4 vertices
+
+vn 0.7597 -0.0000 0.6503
+# 1 vertex normals
+
+vt 0.7071 1.0000 0.0000
+vt 0.0000 1.0000 0.0000
+vt 0.0000 0.0000 0.0000
+vt 0.7071 0.0000 0.0000
+# 4 texture coords
+
+g text7
+usemtl wire_166229229
+s 1
+f 1/1/1 2/2/1 3/3/1 
+f 3/3/1 4/4/1 1/1/1 
+# 2 faces
+

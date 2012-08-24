@@ -1,0 +1,31 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 23.08.2012 07:44:29
+
+mtllib 11_MP_p2d.mtl
+
+#
+# object pi_2d_png
+#
+
+v  0.8472 0.4496 -0.3995
+v  0.8472 0.4496 0.7481
+v  0.8472 1.5973 0.7481
+v  0.8472 1.5973 -0.3995
+# 4 vertices
+
+vn -1.0000 -0.0000 -0.0000
+# 1 vertex normals
+
+vt 0.0000 0.0000 0.0000
+vt 1.0000 0.0000 0.0000
+vt 1.0000 1.0000 0.0000
+vt 0.0000 1.0000 0.0000
+# 4 texture coords
+
+g pi_2d_png
+usemtl wire_204204204
+s off
+f 1/1/1 2/2/1 3/3/1 
+f 3/3/1 4/4/1 1/1/1 
+# 2 faces
+

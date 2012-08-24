@@ -1,0 +1,31 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 23.08.2012 07:55:33
+
+mtllib 11_MP_t5.mtl
+
+#
+# object text5_png
+#
+
+v  1.9208 0.8205 2.2053
+v  1.9208 0.8205 3.2553
+v  2.6633 1.5629 3.2553
+v  2.6633 1.5629 2.2053
+# 4 vertices
+
+vn -0.7071 0.7071 -0.0000
+# 1 vertex normals
+
+vt 0.0200 0.0200 0.0000
+vt 0.9800 0.0200 0.0000
+vt 0.9800 0.9800 0.0000
+vt 0.0200 0.9800 0.0000
+# 4 texture coords
+
+g text5_png
+usemtl wire_204204204
+s off
+f 1/1/1 2/2/1 3/3/1 
+f 3/3/1 4/4/1 1/1/1 
+# 2 faces
+
