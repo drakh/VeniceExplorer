@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="libs/rajawalilib.jar" sourcepath="A:/andr/android_projects/MasDennis-Rajawali-fb3a151"/>
+	<classpathentry kind="lib" path="libs"/>
+	<classpathentry kind="lib" path="libs/rajawalilib.jar" sourcepath="/Rajawali"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

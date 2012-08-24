@@ -1,7 +1,9 @@
 package com.example.veniceexplorer;
 
-import rajawali.RajawaliActivity;
+import android.app.Activity;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -12,7 +14,11 @@ import java.io.InputStreamReader;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import rajawali.animation.TimerManager;
+
 import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import android.hardware.Sensor;
@@ -20,63 +26,80 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
+import android.hardware.Camera.Size;
+
 import android.view.Gravity;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ImageView;
 import android.graphics.Color;
-//import android.widget.ListView;
+import android.graphics.PixelFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import java.text.DecimalFormat;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.List;
-//import android.widget.AdapterView;
-//import android.widget.ListAdapter;
 
-public class VeniceExplorerActivity extends RajawaliActivity implements
-		SensorEventListener {
+public class VeniceExplorerActivity extends Activity implements
+		SensorEventListener
+{
 	/* step detector */
-	DecimalFormat d = new DecimalFormat("#.##");
-	private boolean detecting = false;
-	private static int mLimit = 15;
-	private static float mLastValues[] = new float[3 * 2];
-	private static float mScale[] = new float[2];
-	private static float mYOffset = 0;
-	private static float mLastDirections[] = new float[3 * 2];
-	private static float mLastExtremes[][] = { new float[3 * 2],
-			new float[3 * 2] };
-	private static float mLastDiff[] = new float[3 * 2];
-	private static int mLastMatch = -1;
-	private int steps = 0;
-	private float step_len = 0.67f;
-	static {
+	DecimalFormat					d						= new DecimalFormat(
+																	"#.##");
+	private boolean					detecting				= false;
+	private static int				mLimit					= 15;
+	private static float			mLastValues[]			= new float[3 * 2];
+	private static float			mScale[]				= new float[2];
+	private static float			mYOffset				= 0;
+	private static float			mLastDirections[]		= new float[3 * 2];
+	private static float			mLastExtremes[][]		= {
+			new float[3 * 2], new float[3 * 2]				};
+	private static float			mLastDiff[]				= new float[3 * 2];
+	private static int				mLastMatch				= -1;
+	private int						steps					= 0;
+	private float					step_len				= 0.67f;
+	static
+	{
 		int h = 480;
 		mYOffset = h * 0.5f;
 		mScale = new float[2];
 		mScale[0] = -(h * 0.5f * (1.0f / (SensorManager.STANDARD_GRAVITY * 2)));
 		mScale[1] = -(h * 0.5f * (1.0f / (SensorManager.MAGNETIC_FIELD_EARTH_MAX)));
 	}
+
+	protected FrameLayout			mLayout;
+	protected GLSurfaceView			mSurfaceView;
+	protected boolean				mMultisamplingEnabled	= true;
+	protected boolean				mUsesCoverageAa;
+	private VeniceExplorerRenderer	mRenderer;
+	protected boolean				checkOpenGLVersion		= true;
+
 	/* main app */
-	private SensorManager mSensorManager = null;
-	private VeniceExplorerRenderer mRenderer;
-	private CameraPreview mCameraSurface;
-	private String filename = "main.xml";
-	private String dirname = "VeniceViewer";
-	private TextView rotZ;
-	private ArrayList<ProjectLevel> vProjects;
-	private LinearLayout ll;
-	private float[] orientation;
-	private float[] positions;// here be dragons
+	private SensorManager			mSensorManager			= null;
+	private CameraPreview			mCameraSurface;
+	private String					filename				= "main.xml";
+	private String					dirname					= "VeniceViewer";
+	private TextView				rotZ;
+	private ArrayList<ProjectLevel>	vProjects;
+	private LinearLayout			ll;
+	private float[]					orientation;
+	private float[]					positions;									// here
+																				// be
+																				// dragons
 
-	private float current_phi;
-	private float current_theta;
-	private float cam_x;
-	private float cam_y;
-	private float cam_z;
+	private float					current_phi;
+	private float					current_theta;
+	private float					cam_x;
+	private float					cam_y;
+	private float					cam_z;
 
-	public void onCreate(Bundle savedInstanceState) {
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
 		/* <layout setup> */
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -84,36 +107,67 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		getWindow().getDecorView().setSystemUiVisibility(
 				View.SYSTEM_UI_FLAG_LOW_PROFILE);
-		getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
-		/* doesnt work */
-		// getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
-		/* </layout setup> */
-		super.onCreate(savedInstanceState);
+		DisplayMetrics metrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		chkConfig();
+		super.onCreate(savedInstanceState);
 		/* <renderer init> */
-		// super.createMultisampleConfig();
-		super.setGLBackgroundTransparent(true);
-		mSurfaceView.setZOrderOnTop(false);
-		mRenderer = new VeniceExplorerRenderer(this);
+
+		mLayout = new FrameLayout(this);
+		mLayout.setForegroundGravity(Gravity.CENTER);
+
+		int h = metrics.heightPixels;
+		int w = metrics.widthPixels;
+		Camera c = Camera.open(0);
+		Camera.Parameters p = c.getParameters();
+		Camera.Size cs = getBestPreviewSize(w, h, p);
+		c.release();
+		c = null;
+		// float fl = p.getFocalLength();
+		float ha = p.getHorizontalViewAngle();
+		float wa = p.getVerticalViewAngle();
+
+		ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(cs.width,
+				cs.height);
+		float fov = (float) Math.round(Math.sqrt(ha * ha + wa * wa));
+
+		/* <camera init> */
+		mCameraSurface = new CameraPreview(this, cs);
+		mCameraSurface.setLayoutParams(lp);
+		mCameraSurface.setX((w - cs.width) / 2);
+		mCameraSurface.setY((h - cs.height) / 2);
+		mLayout.addView(mCameraSurface);
+		/* </camera init> */
+
+		/* </renderer init> */
+		mRenderer = new VeniceExplorerRenderer(this, fov);
+		mSurfaceView = new GLSurfaceView(this);
+		mSurfaceView.setEGLContextClientVersion(2);
+		mSurfaceView.setLayoutParams(lp);
+		mSurfaceView.setX((w - cs.width) / 2);
+		mSurfaceView.setY((h - cs.height) / 2);
+		mSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+		mSurfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
+		//mSurfaceView.setZOrderOnTop(true);
+		mSurfaceView.setZOrderMediaOverlay(true);
 		mRenderer.setSurfaceView(mSurfaceView);
 		mRenderer.setObjs(vProjects);
-		super.setRenderer(mRenderer);
+		mSurfaceView.setRenderer(mRenderer);
+		mLayout.addView(mSurfaceView);
 		mRenderer.setBackgroundColor(0);
 		/* </renderer init> */
 
-		/* <camera init> */
-		mCameraSurface = new CameraPreview(this);
-		mLayout.addView(mCameraSurface);
-		/* </camera init> */
 		/* <sensors init> */
 		mSensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);
 		initListeners();
 		/* </sensors init> */
+
 		/* <some GUI> */
 		ll = new LinearLayout(this);
 		ll.setOrientation(LinearLayout.VERTICAL);
 		ll.setGravity(Gravity.TOP);
 		mLayout.addView(ll);
+
 		/* <debug text> */
 		rotZ = new TextView(this);
 		rotZ.setText("");
@@ -125,7 +179,6 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		ll.addView(rotZ);
 
 		rotZ.bringToFront();
-
 		d.setRoundingMode(RoundingMode.HALF_UP);
 		d.setMaximumFractionDigits(3);
 		d.setMinimumFractionDigits(3);
@@ -133,46 +186,93 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		CreateTextMenu();
 		positions = new float[3];
 		orientation = new float[3];
+
+		ImageView info_v = new ImageView(this);
+		info_v.setImageResource(R.drawable.info_b);
+		ll.addView(info_v);
+		ImageView back_v = new ImageView(this);
+		back_v.setImageResource(R.drawable.back_b);
+		ll.addView(back_v);
+		ImageView comm_v = new ImageView(this);
+		comm_v.setImageResource(R.drawable.comment_b);
+		ll.addView(comm_v);
+		setContentView(mLayout);
+		mCameraSurface.bringToFront();
+		mSurfaceView.bringToFront();
+		//mLayout.bringChildToFront(mSurfaceView);
+		ll.bringToFront();
 	}
 
 	@Override
-	public void onStop() {
-		super.onStop();
-		mCameraSurface.stopCam();
-		// unregister sensor listeners to prevent the activity from draining the
-		// device's battery.
-		mSensorManager.unregisterListener(this);
-	}
-
-	@Override
-	protected void onResume() {
+	protected void onResume()
+	{
 		super.onResume();
+		mSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+		mSurfaceView.onResume();
 		initListeners();
 	}
 
 	@Override
-	protected void onPause() {
+	protected void onPause()
+	{
 		super.onPause();
+		TimerManager.getInstance().clear();
 		mSensorManager.unregisterListener(this);
 		mCameraSurface.stopCam();
+		mSurfaceView.onPause();
 		super.finish();
+		System.gc();
+		System.exit(0);
 	}
 
-	public void chkConfig() {
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		mRenderer.onSurfaceDestroyed();
+		unbindDrawables(mLayout);
+		System.gc();
+		System.exit(0);
+	}
+
+	private void unbindDrawables(View view)
+	{
+		if (view.getBackground() != null)
+		{
+			view.getBackground().setCallback(null);
+		}
+		if (view instanceof ViewGroup && !(view instanceof AdapterView))
+		{
+			for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++)
+			{
+				unbindDrawables(((ViewGroup) view).getChildAt(i));
+			}
+			((ViewGroup) view).removeAllViews();
+		}
+	}
+
+	public void chkConfig()
+	{
 		Log.d("main", "checkit");
 		File folder = new File(Environment.getExternalStorageDirectory() + "/"
 				+ dirname);
-		if (!folder.exists()) {
+		if (!folder.exists())
+		{
 			folder.mkdir();
 		}
 		folder = new File(Environment.getExternalStorageDirectory() + "/"
 				+ dirname + "/" + filename);
-		try {
+		try
+		{
 			vProjects = new ArrayList();
 			parseXML(folder, dirname);
-		} catch (XmlPullParserException e) {
+		}
+		catch (XmlPullParserException e)
+		{
 			Log.d("main", "xml error");
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			Log.d("main", "io error");
 
 		}
@@ -180,7 +280,8 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 	}
 
 	public void parseXML(File file, String dirn) throws XmlPullParserException,
-			IOException {
+			IOException
+	{
 		Log.d("main", "xml parser?");
 		XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
 		factory.setNamespaceAware(true);
@@ -189,46 +290,62 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		xpp.setInput(new InputStreamReader(fis));
 		int eventType = xpp.getEventType();
 		int jj = 0;
-		while (eventType != XmlPullParser.END_DOCUMENT) {
-			if (eventType == XmlPullParser.START_DOCUMENT) {
+		while (eventType != XmlPullParser.END_DOCUMENT)
+		{
+			if (eventType == XmlPullParser.START_DOCUMENT)
+			{
 				Log.d("main", "tralala");
-			} else if (eventType == XmlPullParser.START_TAG) {
+			}
+			else if (eventType == XmlPullParser.START_TAG)
+			{
 				String nodeName = xpp.getName();
 				Log.d("main", nodeName);
-				if (nodeName.contentEquals("project")) {
-					for (int k = 0; k < xpp.getAttributeCount(); k++) {
+				if (nodeName.contentEquals("project"))
+				{
+					for (int k = 0; k < xpp.getAttributeCount(); k++)
+					{
 						String an = xpp.getAttributeName(k);
 						String av = xpp.getAttributeValue(k);
-						if (an.contentEquals("name")) {
+						if (an.contentEquals("name"))
+						{
 							vProjects.add(jj, new ProjectLevel(av));
 						}
 					}
 				}
-				if (nodeName.contentEquals("object")) {
+				if (nodeName.contentEquals("object"))
+				{
 					ProjectObject po = new ProjectObject();
-					for (int k = 0; k < xpp.getAttributeCount(); k++) {
+					for (int k = 0; k < xpp.getAttributeCount(); k++)
+					{
 						String an = xpp.getAttributeName(k);
 						String av = xpp.getAttributeValue(k);
-						if (an.contentEquals("model")) {
-							Log.d("ww", "set model");
+						if (an.contentEquals("model"))
+						{
 							po.setModel(dirn + "/" + av);
-						} else if (an.contentEquals("texture")) {
+						}
+						else if (an.contentEquals("texture"))
+						{
 							Log.d("ww", "set texture");
 							po.setTexture(dirn + "/" + av);
-						} else if (an.contentEquals("doublesided")) {
-							Log.d("ww", "set doublesided");
+						}
+						else if (an.contentEquals("doublesided"))
+						{
 							po.setDS(av);
-						} else if (an.contentEquals("usevideo")) {
-							Log.d("ww", "set video");
+						}
+						else if (an.contentEquals("usevideo"))
+						{
 							po.setVideo(av);
 						}
 					}
 					vProjects.get(jj).addModel(po);
 				}
-			} else if (eventType == XmlPullParser.END_TAG) {
+			}
+			else if (eventType == XmlPullParser.END_TAG)
+			{
 				String nodeName = xpp.getName();
 				Log.d("main", "end node: " + nodeName);
-				if (nodeName.contentEquals("project")) {
+				if (nodeName.contentEquals("project"))
+				{
 					jj++;
 				}
 			}
@@ -237,9 +354,11 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		Log.d("main", "Num projects: " + vProjects.size());
 	}
 
-	public void CreateTextMenu() {
+	public void CreateTextMenu()
+	{
 		/* <build list of projects> */
-		for (int i = 0; i < vProjects.size(); i++) {
+		for (int i = 0; i < vProjects.size(); i++)
+		{
 			TextView chsP = new TextView(this);
 			chsP.setText(vProjects.get(i).getName());
 			chsP.setClickable(true);
@@ -249,48 +368,56 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		}
 	}
 
-	private class MyClickListener implements OnClickListener {
-		private int w;
-		VeniceExplorerActivity a;
+	private class MyClickListener implements OnClickListener
+	{
+		private int				w;
+		VeniceExplorerActivity	a;
 
-		public MyClickListener(int w, VeniceExplorerActivity a) {
+		public MyClickListener(int w, VeniceExplorerActivity a)
+		{
 			this.w = w;
 			this.a = a;
 		}
 
-		public void onClick(View v) {
+		public void onClick(View v)
+		{
 			Log.d("Clicked", "project no:" + getW());
 			a.SelectProject(getW());
 		}
 
-		public int getW() {
+		public int getW()
+		{
 			return w;
 		}
 	}
 
-	public void SelectProject(int w) {
+	public void SelectProject(int w)
+	{
 		mRenderer.showProject(w);
 	}
 
-	public void onSensorChanged(SensorEvent event) {
-		switch (event.sensor.getType()) {
-		case Sensor.TYPE_ORIENTATION:
-			orientation[0] = event.values[1] + 180;
-			orientation[1] = event.values[0];
-			orientation[2] = event.values[2];
-			setCameraPos();
-			if (!detecting) {
-				storeCurrentRotPos();
-			}
-			break;
-		case Sensor.TYPE_ACCELEROMETER:
-			if (detecting)
-				detectStep(event);
-			break;
+	public void onSensorChanged(SensorEvent event)
+	{
+		switch (event.sensor.getType())
+		{
+			case Sensor.TYPE_ORIENTATION:
+				orientation[0] = event.values[1] + 180;
+				orientation[1] = event.values[0];
+				orientation[2] = event.values[2];
+				setCameraPos();
+				if (!detecting)
+				{
+					storeCurrentRotPos();
+				}
+				break;
+			case Sensor.TYPE_ACCELEROMETER:
+				if (detecting) detectStep(event);
+				break;
 		}
 	}
 
-	private void storeCurrentRotPos() {
+	private void storeCurrentRotPos()
+	{
 
 		current_phi = orientation[1];
 		current_theta = orientation[0];
@@ -302,13 +429,15 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		detecting = true;
 	}
 
-	private void detectStep(SensorEvent event) {
-		if (event == null)
-			return;
+	private void detectStep(SensorEvent event)
+	{
+		if (event == null) return;
 
-		else {
+		else
+		{
 			float vSum = 0;
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < 3; i++)
+			{
 				final float v = mYOffset + event.values[i] * mScale[0];
 				vSum += v;
 			}
@@ -317,7 +446,8 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 
 			float direction = (v > mLastValues[k] ? 1
 					: (v < mLastValues[k] ? -1 : 0));
-			if (direction == -mLastDirections[k]) {
+			if (direction == -mLastDirections[k])
+			{
 				// Direction changed
 				int extType = (direction > 0 ? 0 : 1); // minumum or
 														// maximum?
@@ -325,17 +455,21 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 				float diff = Math.abs(mLastExtremes[extType][k]
 						- mLastExtremes[1 - extType][k]);
 
-				if (diff > mLimit) {
+				if (diff > mLimit)
+				{
 
 					boolean isAlmostAsLargeAsPrevious = diff > (mLastDiff[k] * 2 / 3);
 					boolean isPreviousLargeEnough = mLastDiff[k] > (diff / 3);
 					boolean isNotContra = (mLastMatch != 1 - extType);
 
 					if (isAlmostAsLargeAsPrevious && isPreviousLargeEnough
-							&& isNotContra) {
+							&& isNotContra)
+					{
 						onStep();
 						mLastMatch = extType;
-					} else {
+					}
+					else
+					{
 						mLastMatch = -1;
 					}
 				}
@@ -346,17 +480,19 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		}
 	}
 
-	public void onStep() {
+	public void onStep()
+	{
 		float[] ap = CylindricalToCartesian(current_phi, step_len, cam_y);
-		ap[0]=cam_x-ap[0];
-		ap[2]=cam_z-ap[2];
+		ap[0] = cam_x - ap[0];
+		ap[2] = cam_z - ap[2];
 		mRenderer.getCamera().setPosition(ap[0], ap[1], ap[2]);
 		storeCurrentRotPos();
 		steps++;
 		setLogValues();
 	}
 
-	public void setLogValues() {
+	public void setLogValues()
+	{
 		String dtext = "X:" + d.format(orientation[0]) + " | Y: "
 				+ d.format(orientation[1]) + " | Z:" + d.format(orientation[2])
 				+ "\n";
@@ -365,7 +501,8 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		rotZ.setText(dtext);
 	}
 
-	public void setCameraPos() {
+	public void setCameraPos()
+	{
 		setLogValues();
 		// current camera position
 		// convert sphjerical to cartesian - sphere radius =1
@@ -375,7 +512,8 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		mRenderer.setCamLA(cartesian[0], cartesian[1], cartesian[2]);
 	}
 
-	public float[] SphericalToCartesian(float phi, float theta, float r) {
+	public float[] SphericalToCartesian(float phi, float theta, float r)
+	{
 		float[] coords = new float[3];
 		float p = (float) Math.toRadians(phi);
 		float t = (float) Math.toRadians(theta);
@@ -392,7 +530,8 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		return coords;
 	}
 
-	public float[] CylindricalToCartesian(float phi, float r, float h) {
+	public float[] CylindricalToCartesian(float phi, float r, float h)
+	{
 		float[] coords = new float[3];
 		float p = (float) Math.toRadians(phi);
 		float sinPhi = (float) (Math.round(Math.sin(p) * 1000)) / 1000;
@@ -406,11 +545,13 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 
 	}
 
-	public void onAccuracyChanged(Sensor arg0, int arg1) {
+	public void onAccuracyChanged(Sensor arg0, int arg1)
+	{
 
 	}
 
-	public void initListeners() {
+	public void initListeners()
+	{
 		mSensorManager.registerListener(this, mSensorManager
 				.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION),
 				SensorManager.SENSOR_DELAY_FASTEST);
@@ -420,5 +561,32 @@ public class VeniceExplorerActivity extends RajawaliActivity implements
 		mSensorManager.registerListener(this,
 				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 				SensorManager.SENSOR_DELAY_FASTEST);
+	}
+
+	private Camera.Size getBestPreviewSize(int width, int height,
+			Camera.Parameters p)
+	{
+		Camera.Size result = null;
+		for (Camera.Size size : p.getSupportedPreviewSizes())
+		{
+			if (size.width <= width && size.height <= height)
+			{
+				if (result == null)
+				{
+					result = size;
+				}
+				else
+				{
+					int resultArea = result.width * result.height;
+					int newArea = size.width * size.height;
+
+					if (newArea > resultArea)
+					{
+						result = size;
+					}
+				}
+			}
+		}
+		return result;
 	}
 }

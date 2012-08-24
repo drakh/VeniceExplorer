@@ -10,42 +10,46 @@ import android.view.SurfaceView;
 import android.util.Log;
 
 public class CameraPreview extends SurfaceView implements
-		SurfaceHolder.Callback {
-	SurfaceHolder mHolder;
-	public Camera mVCamera;
+		SurfaceHolder.Callback
+{
+	SurfaceHolder		mHolder;
+	private Camera		mVCamera;
+	private Camera.Size	ps;
 
-	CameraPreview(Context context) {
+	CameraPreview(Context context, Camera.Size cs)
+	{
 		super(context);
+		ps=cs;
 		mHolder = getHolder();
 		mHolder.addCallback(this);
 		mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-		Log.d("main", "camera context init");
 	}
 
-	public void surfaceCreated(SurfaceHolder holder) {
-		Log.d("main", "camera surface created");
-		if (mVCamera == null) {
+	public void surfaceCreated(SurfaceHolder holder)
+	{
+		if (mVCamera == null)
+		{
 			mVCamera = Camera.open(0);
-			try {
-				Camera.Parameters parameters = mVCamera.getParameters();
-				mVCamera.setDisplayOrientation(0);
+			try
+			{
+				Camera.Parameters p = mVCamera.getParameters();
+				p.setPreviewSize(ps.width, ps.height);
 				mVCamera.setPreviewDisplay(holder);
+				mVCamera.setParameters(p);
 				mVCamera.startPreview();
-			    mVCamera.setParameters(parameters);
-			    mVCamera.startPreview();
-				Log.d("main", "camera started");
-			} catch (IOException e) {
-				Log.d("main", "camera preview failed");
+			}
+			catch (IOException e)
+			{
 			}
 		}
 	}
 
-	public void surfaceDestroyed(SurfaceHolder holder) {
+	public void surfaceDestroyed(SurfaceHolder holder)
+	{
 		stopCam();
 	}
 
 	public void stopCam()
-
 	{
 
 		mVCamera.stopPreview();
@@ -54,6 +58,7 @@ public class CameraPreview extends SurfaceView implements
 
 	}
 
-	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h)
+	{
 	}
 }
