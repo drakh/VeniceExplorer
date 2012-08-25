@@ -62,6 +62,7 @@ public class VeniceExplorerActivity extends Activity implements
 	private static int				mLastMatch				= -1;
 	private int						steps					= 0;
 	private float					step_len				= 0.67f;
+	private int						da						= 0;
 	static
 	{
 		int h = 480;
@@ -184,19 +185,19 @@ public class VeniceExplorerActivity extends Activity implements
 		CreateTextMenu();
 		positions = new float[3];
 		orientation = new float[3];
-		
-		float rp=w-90-20;
-		float bp=h-33-20;
-		FrameLayout gui=new FrameLayout(this);
-		ViewGroup.LayoutParams gui_p = new ViewGroup.LayoutParams(90,33);		
-		
+
+		float rp = w - 90 - 20;
+		float bp = h - 33 - 20;
+		FrameLayout gui = new FrameLayout(this);
+		ViewGroup.LayoutParams gui_p = new ViewGroup.LayoutParams(90, 33);
+
 		ImageView info_v = new ImageView(this);
 		info_v.setLayoutParams(gui_p);
 		info_v.setImageResource(R.drawable.info_b);
 		info_v.setX(rp);
 		info_v.setY(bp);
 		gui.addView(info_v);
-		
+
 		ImageView back_v = new ImageView(this);
 		back_v.setImageResource(R.drawable.back_b);
 		back_v.setLayoutParams(gui_p);
@@ -310,7 +311,19 @@ public class VeniceExplorerActivity extends Activity implements
 			{
 				String nodeName = xpp.getName();
 				Log.d("main", nodeName);
-				if (nodeName.contentEquals("project"))
+				if (nodeName.contentEquals("venice"))
+				{
+					for (int k = 0; k < xpp.getAttributeCount(); k++)
+					{
+						String an = xpp.getAttributeName(k);
+						String av = xpp.getAttributeValue(k);
+						if (an.contentEquals("da"))
+						{
+							da=Integer.parseInt(av);
+						}
+					}
+				}
+				else if (nodeName.contentEquals("project"))
 				{
 					for (int k = 0; k < xpp.getAttributeCount(); k++)
 					{
@@ -320,6 +333,7 @@ public class VeniceExplorerActivity extends Activity implements
 						{
 							vProjects.add(jj, new ProjectLevel(av));
 						}
+
 					}
 				}
 				else if (nodeName.contentEquals("object"))
@@ -350,20 +364,20 @@ public class VeniceExplorerActivity extends Activity implements
 						{
 							po.setInteractive(av);
 						}
-						else if(an.contentEquals("visible"))
+						else if (an.contentEquals("visible"))
 						{
-							
+
 						}
 					}
 					vProjects.get(jj).addModel(po);
 				}
-				else if(nodeName.contentEquals("action"))
+				else if (nodeName.contentEquals("action"))
 				{
-					
+
 				}
-				else if(nodeName.contentEquals("texture"))
+				else if (nodeName.contentEquals("texture"))
 				{
-					//vProjects.get(jj).addTexture(xpp.getText());
+					// vProjects.get(jj).addTexture(xpp.getText());
 				}
 			}
 			else if (eventType == XmlPullParser.END_TAG)
@@ -516,7 +530,7 @@ public class VeniceExplorerActivity extends Activity implements
 		float[] ap = CylindricalToCartesian(current_phi, step_len, cam_y);
 		ap[0] = cam_x - ap[0];
 		ap[2] = cam_z - ap[2];
-		mRenderer.setCamPos(ap[0],ap[1],ap[2]);
+		mRenderer.setCamPos(ap[0], ap[1], ap[2]);
 		storeCurrentRotPos();
 		steps++;
 		setLogValues();
@@ -537,7 +551,7 @@ public class VeniceExplorerActivity extends Activity implements
 		setLogValues();
 		// current camera position
 		// convert sphjerical to cartesian - sphere radius =1
-		float phi = orientation[1];
+		float phi = orientation[1]+da;
 		float theta = orientation[0];
 		float[] cartesian = SphericalToCartesian(phi, theta, 1f);
 		mRenderer.setCamLA(cartesian[0], cartesian[1], cartesian[2]);
@@ -621,15 +635,12 @@ public class VeniceExplorerActivity extends Activity implements
 		return result;
 	}
 	/*
-	public void onReceive(Context context , Intent intent) {
-	    String action = intent.getAction();
-
-	    if(action.equals(Intent.ACTION_POWER_CONNECTED)) {
-	        // Do something when power connected
-	    }
-	    else if(action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
-	        // Do something when power disconnected
-	    }
-	}
-	*/
+	 * public void onReceive(Context context , Intent intent) { String action =
+	 * intent.getAction();
+	 * 
+	 * if(action.equals(Intent.ACTION_POWER_CONNECTED)) { // Do something when
+	 * power connected } else
+	 * if(action.equals(Intent.ACTION_POWER_DISCONNECTED)) { // Do something
+	 * when power disconnected } }
+	 */
 }
