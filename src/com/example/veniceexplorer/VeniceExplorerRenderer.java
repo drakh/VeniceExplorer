@@ -40,16 +40,17 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 	private ArrayList<ProjectLevel>	ps;
 	private ArrayList<String>		textureNames;
 	private ArrayList<TextureInfo>	textureInfos;
-	private boolean					izLoaded	= true;	// to tell on draw
-															// frame if to load
-															// scene
-	private boolean					doLoad		= true;	// no project loaded
-															// ever
+	private boolean					izLoaded	= true; // to tell on draw
+														// frame if to load
+														// scene
+	private boolean					doLoad		= true; // no project loaded
+														// ever
 	private TextureInfo				vt;
 	VideoMaterial					vmaterial;
 	private float					fov;
 	private int						curProj		= 0;
 	private SimpleMaterial			sMm;
+	float							camH		= 1.4f;
 
 	public VeniceExplorerRenderer(Context context, float f)
 	{
@@ -57,6 +58,7 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 		RajLog.enableDebug(false);
 		textureNames = new ArrayList<String>();
 		textureInfos = new ArrayList<TextureInfo>();
+		fov = f;
 		setFrameRate(30);
 	}
 
@@ -71,9 +73,10 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 		mLight.setPower(5f);
 		mLight.setAttenuation(500, 1, .09f, .032f);
 		mLight.setPosition(0f, 1.6f, 0f);
-		mCamera.setPosition(0f, 1.4f, 0f);
+		mCamera.setPosition(0f, camH, 0f);
 		mCamera.setFarPlane(50f);
 		mCamera.setNearPlane(0.1f);
+		mCamera.setFieldOfView(fov);
 	}
 
 	public void setupVideoTexture()
@@ -144,14 +147,13 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 				}
 			}
 			addChild(obj);
-			Number3D op = obj.getPosition();
 			BoundingBox bb = obj.getGeometry().getBoundingBox();
-			Number3D mmin = bb.getMin();
-			Log.d("boubd", "min: " + mmin.x + "|" + mmin.y + "|" + mmin.z);
-			mmin = bb.getMax();
-			Log.d("boubd", "max: " + mmin.x + "|" + mmin.y + "|" + mmin.z);
-			Log.d("position", "o: " + op.x + "|" + op.y + "|" + op.z);
-			p.getModels().get(i).obj = obj;
+			Number3D mi = bb.getMin();
+			Number3D mx = bb.getMax();
+			Number3D cnt = new Number3D((mi.x + mx.x) / 2, (mi.y + mx.y) / 2,
+					(mi.z + mx.z) / 2);
+			p.getModels().get(i).setCenter(cnt);
+			p.getModels().get(i).setObj(obj);
 		}
 		Log.d("objloader", "objects in scene:" + getNumChildren());
 	}
@@ -215,9 +217,13 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 		float cx = mCamera.getX();
 		float cy = mCamera.getY();
 		float cz = mCamera.getZ();
+		Log.d("pos"," "+cx+"|"+cy+"|"+cz);
 		mCamera.setLookAt(cx - ax, cy + ay, cz - az);
 	}
-
+	public void setCamPos(float ax, float ay, float az)
+	{
+		mCamera.setPosition(ax, camH, az);
+	}
 	public void onBufferingUpdate(MediaPlayer arg0, int arg1)
 	{
 	}

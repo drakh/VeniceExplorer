@@ -500,7 +500,7 @@ public class VeniceExplorerActivity extends Activity implements
 		float[] ap = CylindricalToCartesian(current_phi, step_len, cam_y);
 		ap[0] = cam_x - ap[0];
 		ap[2] = cam_z - ap[2];
-		mRenderer.getCamera().setPosition(ap[0], ap[1], ap[2]);
+		mRenderer.setCamPos(ap[0],ap[1],ap[2]);
 		storeCurrentRotPos();
 		steps++;
 		setLogValues();
@@ -604,4 +604,16 @@ public class VeniceExplorerActivity extends Activity implements
 		}
 		return result;
 	}
+	/*
+	public void onReceive(Context context , Intent intent) {
+	    String action = intent.getAction();
+
+	    if(action.equals(Intent.ACTION_POWER_CONNECTED)) {
+	        // Do something when power connected
+	    }
+	    else if(action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
+	        // Do something when power disconnected
+	    }
+	}
+	*/
 }

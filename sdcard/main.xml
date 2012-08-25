@@ -96,235 +96,247 @@
 	        </axes>
 	    </action>
 	     -->
-		<object interactive="true" action="changeTexture" model="02_NG-BB_obj" texture="NGBB.png" doublesided="0" visible="0"></object>
-		<object interactive="false" model="02_NG-001_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-002_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-003_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-004_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-005_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-006_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-007_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-008_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-009_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-010_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-011_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-012_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-013_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-014_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-015_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-016_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-017_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-018_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-019_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-020_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-021_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-022_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-023_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-024_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-025_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-026_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-027_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-028_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-029_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-030_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-031_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-032_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-033_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-034_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-035_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-036_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-037_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-038_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-039_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-040_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-041_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-042_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-043_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-044_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-045_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-046_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-047_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-048_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-049_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-050_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-051_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-052_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-053_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-054_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-055_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-056_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-057_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-058_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-059_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-060_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-061_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-062_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-063_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-064_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-065_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-066_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-067_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-068_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-069_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-070_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-071_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-072_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-073_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-074_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-075_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-076_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-077_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-078_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-079_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-080_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-081_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-082_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-083_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-084_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-085_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-086_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-087_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-088_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-089_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-090_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-091_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-092_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-093_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-094_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-095_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-096_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-097_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-098_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-099_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-100_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-101_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-102_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-103_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-104_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-105_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-106_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-107_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-108_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-109_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-110_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-111_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-112_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-113_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-114_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-115_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-116_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-117_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-118_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-119_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-120_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-121_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-122_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-123_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-124_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-125_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-126_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-127_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-128_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-129_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-130_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-131_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-132_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-133_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-134_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-135_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-136_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-137_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-138_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-139_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-140_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-141_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-142_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-143_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-144_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-145_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-146_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-147_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-148_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-149_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-150_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-151_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-152_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-153_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-154_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-155_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-156_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-157_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-158_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-159_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-160_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-161_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-162_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-163_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-164_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-165_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-166_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-167_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-168_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-169_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-170_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-171_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-172_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-173_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-174_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-175_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-176_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-177_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-178_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-179_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-180_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-181_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-182_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-183_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-184_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-185_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-186_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-187_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-188_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-189_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-190_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-191_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-192_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-193_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-194_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-195_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-196_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-197_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-198_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-199_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-200_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-201_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-202_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-203_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-204_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-205_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-206_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-207_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-208_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-209_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-210_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-211_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-212_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-213_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-214_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-215_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-216_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-217_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-218_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-219_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-220_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-221_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-222_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-223_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-224_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-225_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-226_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-227_obj" texture="NG01.png" doublesided="0"></object>
-		<object interactive="false" model="02_NG-228_obj" texture="NG01.png" doublesided="0"></object>
+		<action name="changeTexture" type="s" radius="0.4">
+		    <onenter>
+		        <changetexture>
+		            <texture>NG01.png</texture>
+		            <texture>NG02.png</texture>
+		            <texture>NG03.png</texture>
+		            <texture>NG04.png</texture>
+		            <texture>NG05.png</texture>
+		            <texture>NG06.png</texture>
+		        </changetexture>
+		    </onenter>
+		</action> 
+		<object interactive="false" model="02_NG-BB_obj" texture="NGBB.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-001_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-002_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-003_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-004_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-005_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-006_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-007_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-008_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-009_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-010_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-011_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-012_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-013_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-014_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-015_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-016_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-017_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-018_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-019_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-020_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-021_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-022_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-023_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-024_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-025_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-026_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-027_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-028_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-029_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-030_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-031_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-032_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-033_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-034_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-035_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-036_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-037_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-038_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-039_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-040_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-041_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-042_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-043_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-044_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-045_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-046_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-047_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-048_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-049_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-050_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-051_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-052_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-053_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-054_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-055_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-056_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-057_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-058_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-059_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-060_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-061_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-062_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-063_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-064_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-065_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-066_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-067_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-068_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-069_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-070_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-071_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-072_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-073_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-074_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-075_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-076_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-077_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-078_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-079_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-080_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-081_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-082_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-083_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-084_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-085_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-086_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-087_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-088_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-089_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-090_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-091_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-092_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-093_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-094_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-095_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-096_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-097_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-098_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-099_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-100_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-101_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-102_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-103_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-104_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-105_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-106_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-107_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-108_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-109_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-110_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-111_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-112_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-113_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-114_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-115_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-116_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-117_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-118_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-119_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-120_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-121_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-122_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-123_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-124_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-125_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-126_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-127_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-128_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-129_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-130_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-131_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-132_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-133_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-134_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-135_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-136_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-137_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-138_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-139_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-140_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-141_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-142_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-143_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-144_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-145_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-146_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-147_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-148_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-149_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-150_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-151_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-152_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-153_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-154_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-155_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-156_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-157_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-158_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-159_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-160_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-161_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-162_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-163_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-164_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-165_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-166_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-167_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-168_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-169_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-170_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-171_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-172_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-173_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-174_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-175_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-176_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-177_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-178_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-179_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-180_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-181_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-182_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-183_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-184_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-185_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-186_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-187_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-188_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-189_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-190_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-191_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-192_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-193_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-194_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-195_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-196_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-197_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-198_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-199_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-200_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-201_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-202_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-203_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-204_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-205_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-206_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-207_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-208_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-209_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-210_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-211_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-212_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-213_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-214_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-215_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-216_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-217_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-218_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-219_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-220_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-221_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-222_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-223_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-224_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-225_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-226_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-227_obj" texture="NG01.png" doublesided="0"></object>
+		<object interactive="true" action="changeTexture" model="02_NG-228_obj" texture="NG01.png" doublesided="0"></object>
 	</project>
 	<!-- 
 	<project name="video" description="description of project 2">
