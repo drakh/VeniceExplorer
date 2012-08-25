@@ -76,7 +76,7 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 		mCamera.setPosition(0f, camH, 0f);
 		mCamera.setFarPlane(50f);
 		mCamera.setNearPlane(0.1f);
-		mCamera.setFieldOfView(fov);
+		//mCamera.setFieldOfView(fov);
 	}
 
 	public void setupVideoTexture()
