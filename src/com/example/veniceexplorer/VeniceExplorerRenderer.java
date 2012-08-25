@@ -196,6 +196,11 @@ public class VeniceExplorerRenderer extends RajawaliRenderer implements
 			loadScene();
 			izLoaded = true;
 		}
+		//iterate thru objects for interactivity
+		if(doLoad==true)
+		{
+			
+		}
 	}
 
 	protected void clearScene()

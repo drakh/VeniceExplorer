@@ -6,15 +6,16 @@ public class ProjectLevel
 {
 	private String						projectName;
 	private ArrayList<ProjectObject>	objs;
-	private ArrayList<String>			textures;
 
 	ProjectLevel(String pn)
 	{
 		projectName = pn;
 		objs = new ArrayList<ProjectObject>();
-		textures = new ArrayList<String>();
 	}
-
+	public void init()
+	{
+		
+	}
 	public String getName()
 	{
 		return projectName;

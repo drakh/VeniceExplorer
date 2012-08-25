@@ -322,7 +322,7 @@ public class VeniceExplorerActivity extends Activity implements
 						}
 					}
 				}
-				if (nodeName.contentEquals("object"))
+				else if (nodeName.contentEquals("object"))
 				{
 					ProjectObject po = new ProjectObject();
 					for (int k = 0; k < xpp.getAttributeCount(); k++)
@@ -346,8 +346,24 @@ public class VeniceExplorerActivity extends Activity implements
 						{
 							po.setVideo(av);
 						}
+						else if (an.contentEquals("interactive"))
+						{
+							po.setInteractive(av);
+						}
+						else if(an.contentEquals("visible"))
+						{
+							
+						}
 					}
 					vProjects.get(jj).addModel(po);
+				}
+				else if(nodeName.contentEquals("action"))
+				{
+					
+				}
+				else if(nodeName.contentEquals("texture"))
+				{
+					//vProjects.get(jj).addTexture(xpp.getText());
 				}
 			}
 			else if (eventType == XmlPullParser.END_TAG)

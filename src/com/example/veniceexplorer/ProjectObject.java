@@ -13,6 +13,7 @@ public class ProjectObject
 	private int			doublesided		= 0;
 	private int			video			= 0;
 	private int			hidden			= 0;
+	private int			interactive		= 0;
 	public BaseObject3D	obj;
 	private Number3D	center;
 	private float		radius;
@@ -47,7 +48,17 @@ public class ProjectObject
 	{
 		modelName = path;
 	}
-
+	public void setInteractive(String ia)
+	{
+		if(ia.equalsIgnoreCase("true"))
+		{
+			interactive=1;
+		}
+	}
+	public void setVisible(String v)
+	{
+		if(Integer.parseInt(v)==0) hidden=1;
+	}
 	public String getModel()
 	{
 		return modelName;
@@ -57,7 +68,11 @@ public class ProjectObject
 	{
 		return modelTexture;
 	}
-
+	public boolean isVisible()
+	{
+		if(hidden==0) return false;
+		else return true;
+	}
 	public boolean isDoubleSided()
 	{
 		boolean r = false;
