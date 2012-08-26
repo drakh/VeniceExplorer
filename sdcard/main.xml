@@ -1,5 +1,5 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
-<venice version="0.1" startx="0" starty="0" startz="0" server="http://someserver" debug="false">
+<venice version="0.1" startx="0" starty="0" startz="0" da="30" server="http://someserver" debug="false">
 	<project name="M_P_BA" description="Morhacova">
 		<object interactive="false" model="11_MP_m_obj" texture="11_MP_m.png" doublesided="1"></object>
 		<object interactive="false" model="11_MP_o5_obj" texture="11_MP_o5.png" doublesided="1"></object>
