@@ -47,6 +47,14 @@ import java.util.ArrayList;
 public class VeniceExplorerActivity extends Activity implements
 		SensorEventListener
 {
+	private float[]					gyro					= new float[3];
+	public static final float		EPSILON					= 0.000000001f;
+	private static final float		NS2S					= 1.0f / 1000000000.0f;
+	private float					timestamp				= 0f;
+	float							gyroVal					= 0;
+	float							accVal					= 9.8f;
+	boolean							moving					= false;
+	private float					rot						= 0;
 	/* step detector */
 	DecimalFormat					d						= new DecimalFormat(
 																	"#.##");
@@ -88,9 +96,9 @@ public class VeniceExplorerActivity extends Activity implements
 	private ArrayList<ProjectLevel>	vProjects;
 	private LinearLayout			ll;
 	private float[]					orientation;
-	private float[]					positions;									// here
-																				// be
-																				// dragons
+	private float[]					positions;										// here
+																					// be
+																					// dragons
 	private boolean					showDebug				= false;
 	private float					current_phi;
 	private float					current_theta;
@@ -319,7 +327,7 @@ public class VeniceExplorerActivity extends Activity implements
 						String av = xpp.getAttributeValue(k);
 						if (an.contentEquals("da"))
 						{
-							da=Integer.parseInt(av);
+							da = Integer.parseInt(av);
 						}
 					}
 				}
@@ -445,6 +453,10 @@ public class VeniceExplorerActivity extends Activity implements
 	{
 		switch (event.sensor.getType())
 		{
+
+			case Sensor.TYPE_GYROSCOPE:
+				gyroFunction(event);
+				break;
 			case Sensor.TYPE_ORIENTATION:
 				orientation[0] = event.values[1] + 180;
 				orientation[1] = event.values[0];
@@ -456,6 +468,7 @@ public class VeniceExplorerActivity extends Activity implements
 				}
 				break;
 			case Sensor.TYPE_ACCELEROMETER:
+				accFunction(event);
 				if (detecting) detectStep(event);
 				break;
 		}
@@ -551,7 +564,7 @@ public class VeniceExplorerActivity extends Activity implements
 		setLogValues();
 		// current camera position
 		// convert sphjerical to cartesian - sphere radius =1
-		float phi = orientation[1]+da;
+		float phi=rot+da;
 		float theta = orientation[0];
 		float[] cartesian = SphericalToCartesian(phi, theta, 1f);
 		mRenderer.setCamLA(cartesian[0], cartesian[1], cartesian[2]);
@@ -599,13 +612,16 @@ public class VeniceExplorerActivity extends Activity implements
 	{
 		mSensorManager.registerListener(this, mSensorManager
 				.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION),
-				SensorManager.SENSOR_DELAY_FASTEST);
+				SensorManager.SENSOR_DELAY_UI);
 		mSensorManager.registerListener(this,
 				mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
-				SensorManager.SENSOR_DELAY_FASTEST);
+				SensorManager.SENSOR_DELAY_UI);
 		mSensorManager.registerListener(this,
 				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-				SensorManager.SENSOR_DELAY_FASTEST);
+				SensorManager.SENSOR_DELAY_UI);
+		mSensorManager.registerListener(this,
+				mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+				SensorManager.SENSOR_DELAY_UI);
 	}
 
 	private Camera.Size getBestPreviewSize(int width, int height,
@@ -633,6 +649,46 @@ public class VeniceExplorerActivity extends Activity implements
 			}
 		}
 		return result;
+	}
+
+	public void gyroFunction(SensorEvent event)
+	{
+		if (timestamp * NS2S > 2)
+		{
+			final float dT = (event.timestamp - timestamp) * NS2S;
+			final float rot_v = event.values[1];
+			gyroVal += (rot_v - gyroVal) / 10;
+			float omegaMagnitude = (float) Math.sqrt(event.values[0]
+					* event.values[0] + gyroVal * gyroVal + event.values[2]
+					* event.values[2]);
+			if (omegaMagnitude > EPSILON && moving == true)
+			{
+				rot -= Math.toDegrees(gyroVal * dT);
+				if (rot > 360)
+				{
+					rot = rot % 360;
+				}
+			}
+			// measurement done, save current time for next interval
+		}
+		timestamp = event.timestamp;
+	}
+
+	public void accFunction(SensorEvent event)
+	{
+		float omegaMagnitude = (float) Math.sqrt(event.values[0]
+				* event.values[0] + event.values[1] * event.values[1]
+				+ event.values[2] * event.values[2]);
+		float prevAcc = accVal;
+		accVal += (omegaMagnitude - accVal) / 2.5;
+		if (Math.abs(prevAcc - accVal) >= 0.02)
+		{
+			moving = true;
+		}
+		else
+		{
+			moving = false;
+		}
 	}
 	/*
 	 * public void onReceive(Context context , Intent intent) { String action =
