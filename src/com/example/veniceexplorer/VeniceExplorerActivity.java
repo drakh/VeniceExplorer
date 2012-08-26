@@ -564,7 +564,7 @@ public class VeniceExplorerActivity extends Activity implements
 		setLogValues();
 		// current camera position
 		// convert sphjerical to cartesian - sphere radius =1
-		float phi=rot+da;
+		float phi=rot;
 		float theta = orientation[0];
 		float[] cartesian = SphericalToCartesian(phi, theta, 1f);
 		mRenderer.setCamLA(cartesian[0], cartesian[1], cartesian[2]);
